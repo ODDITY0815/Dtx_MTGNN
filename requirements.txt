@@ -1,0 +1,40 @@
+# =============================
+# Core numerical / scientific
+# =============================
+numpy>=1.23.0
+pandas>=1.5.0
+scipy>=1.10.0
+
+# =============================
+# Deep learning (PyTorch)
+# =============================
+torch>=2.0.0
+torchvision>=0.15.0
+
+# =============================
+# Visualization / plotting
+# =============================
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# =============================
+# Data I/O and CLI utilities
+# =============================
+argparse>=1.4.0
+tqdm>=4.65.0
+
+# =============================
+# Optional: Development / debugging
+# =============================
+ipython>=8.0.0
+jupyter>=1.0.0
+
+# =============================
+# (Optional) ML baseline comparison
+# =============================
+scikit-learn>=1.3.0
+
+# =============================
+# (Optional) macOS / file ops
+# =============================
+pathlib>=1.0.1
