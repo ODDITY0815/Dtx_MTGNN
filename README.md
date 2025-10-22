@@ -128,6 +128,7 @@ python3 compare_test_table_lstm.py \
 
 
 ## 자료
+```
 MTGNN/
 ├─ train_multi_step.py
 ├─ replay_mtgnn.py
@@ -188,3 +189,4 @@ MTGNN/
 │  │  └─ …
 │  └─ …
 │
+```
