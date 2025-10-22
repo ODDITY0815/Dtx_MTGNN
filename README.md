@@ -11,6 +11,11 @@
   3. evaluate_mtgnn.py : 결과 메트릭(MAE, RMSE, MAPE) 및 실제 값과 비교 출력
   4. compare_test_table.py : validation 데이터 배치 중 하나 선택, 실제값-예측값 눈으로 비교
 
+## requirements
+```
+pip install -r requirements.txt
+```
+
 
 ## 실행 커맨드
 ### 0. 공통
