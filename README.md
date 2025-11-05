@@ -1,15 +1,21 @@
 # Dtx_MTGNN
-- Dtx 프로젝트 데이터 분석
-- MTGNN 모델 적용
+- Dtx 프로젝트 EMA 데이터 분석
+- "dstot", "eu_lag_sum", "hr_mean", "hr_var", "pain_mean" : 다섯 개 변인으로 구성됨
+- "pain_mean" 예측(분류)을 목적으로 함
+- 본 페이지에서는 MTGNN 모델 적용
 - 예시데이터 및 다른 모델과 비교 가능((실제, 예시) x (GNN, LSTM))
 
+  ```
+  Wu, Z., Pan, S., Long, G., Jiang, J., Chang, X., & Zhang, C. (2020, August). Connecting the dots: Multivariate time series forecasting with graph neural networks. In Proceedings of the 26th ACM SIGKDD international conference on knowledge discovery & data mining (pp. 753-763).)
+
+  ```
   
 ## 코드 설명
 - 설명
-  1. train_multi_step.py : MTGNN 깃허브의 net.py, layer.py 모델 구조 유지
+  1. train_multi_step.py : MTGNN 원문에서 제공된 net.py, layer.py 등 모델 구조 유지
   2. convert_and_check.py : 우리가 가진 csv 데이터를 npz 형식으로 변환, 모델에 입력
-  3. evaluate_mtgnn.py : 결과 메트릭(MAE, RMSE, MAPE) 및 실제 값과 비교 출력
-  4. compare_test_table.py : validation 데이터 배치 중 하나 선택, 실제값-예측값 눈으로 비교
+  3. evaluate_mtgnn.py : 결과 메트릭(MAE, RMSE, MAPE) 출력
+  4. compare_test_table.py : validation 데이터 배치 중 하나 선택, 실제값-예측값 시각화
 
 ## requirements
 ```
@@ -77,64 +83,16 @@ python3 compare_test_table.py \
   --save_csv ./compare/test_true_pred_table_7.csv \
   --limit_rows 100
 ```
-### 2. LSTM
-- (학습)
-```
-python3 train_lstm.py \
-  --data ./data/MYDATA/data_7 \
-  --num_nodes 5 \
-  --in_dim 1 \
-  --seq_in_len 12 \
-  --seq_out_len 12 \
-  --hidden_size 64 \
-  --num_layers 1 \
-  --dropout 0.1 \
-  --batch_size 64 \
-  --learning_rate 0.001 \
-  --epochs 50 \
-  --save ./save_lstm_simple/data_7 \
-  --expid 7
-```
-- (평가)
-```
-python3 evaluate_lstm.py \
---data_dir ./data/MYDATA/data_7 \
---ckpt ./save_lstm_simple/data_7/lstm_exp7.pth \
---num_nodes 5 \
---in_dim 1 \
---seq_in_len 12 \
---seq_out_len 12 \
---split val \
---batch_index 0 \
---save_csv ./evaluate/evaluate_lstm_b0_tidy_7.csv \
---save_wide_csv ./evaluate_lstm_b0_wide_7.csv
-```
-- (실제 값과 비교)
-```
-python3 compare_test_table_lstm.py \
-  --data_dir ./data/MYDATA/data_7 \
-  --ckpt ./save_lstm_simple/data7/lstm_exp7.pth \
-  --num_nodes 5 \
-  --in_dim 1 \
-  --seq_in_len 12 \
-  --seq_out_len 12 \
-  --save_csv ./compare/test_true_pred_table_lstm_7.csv \
-  --limit_rows 100
-```
 
 
 
-
-
-
-## 자료
+## 자료 구조
 ```
 MTGNN/
 ├─ train_multi_step.py
 ├─ replay_mtgnn.py
 ├─ compare_test_table.py
 ├─ compare_test_table_lstm.py
-├─ make_easy_synth_split.py
 ├─ util.py
 ├─ trainer.py
 ├─ net.py
@@ -182,11 +140,5 @@ MTGNN/
 │  └─ data_1/
 │     ├─ exp1_0.pth
 │     └─ …
-│
-├─ save_lstm/                  # LSTM 학습 결과
-│  ├─ data_1/
-│  │  ├─ lstm_expid_0.pth
-│  │  └─ …
-│  └─ …
 │
 ```
