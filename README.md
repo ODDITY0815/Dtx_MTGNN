@@ -12,10 +12,10 @@
   
 ## 코드 설명
 - 설명
-  1. train_multi_step.py : MTGNN 원문에서 제공된 net.py, layer.py 등 모델 구조 유지
-  2. convert_and_check.py : 우리가 가진 csv 데이터를 npz 형식으로 변환, 모델에 입력
-  3. evaluate_mtgnn.py : 결과 메트릭(MAE, RMSE, MAPE) 출력
-  4. compare_test_table.py : validation 데이터 배치 중 하나 선택, 실제값-예측값 시각화
+  1. train_multi_step.py : 모델 학습 코드. MTGNN 원문에서 제공된 net.py, layer.py 등 모델 구조 유지됨
+  2. convert_and_check.py : 데이터 변환 코드. 전처리된 csv 데이터를 npz 형식으로 변환, 모델에 입력
+  3. evaluate_mtgnn.py : 결과 메트릭(MAE, RMSE, MAPE) 출력 코드
+  4. compare_test_table.py : 시각화 코드. validation 데이터 배치 중 하나 선택, 실제값-예측값 시각화
 
 ## requirements
 ```
@@ -31,21 +31,21 @@ python3 convert_and_check.py \
   --input_dir ./data/split \
   --output_base ./data/MYDATA \
   --start_id 2 --end_id 50 \
-  --seq_in_len 12 --seq_out_len 12 \
+  --seq_in_len 12 --seq_out_len 1 \
   --no_time_in_day \
   --hour_policy round \
   --no_interpolate \
   --y_use_base_only
 ```
 ### 1. MTGNN
-- (학습)
+- (모델 학습)
 ```
 python3 train_multi_step.py \
   --data ./data/MYDATA/data_7 \
   --num_nodes 5 \
   --in_dim 1 \
   --seq_in_len 12 \
-  --seq_out_len 12 \
+  --seq_out_len 1 \
   --gcn_true true \
   --buildA_true true \
   --adj_data "" \
@@ -56,7 +56,7 @@ python3 train_multi_step.py \
   --save ./save/data_38 \
   --expid 38
 ```
-- (평가)
+- (모델 평가)
 ```
 python3 evaluate_mtgnn.py \
 --data_dir ./data/MYDATA/data_7 \
@@ -64,14 +64,14 @@ python3 evaluate_mtgnn.py \
 --num_nodes 5 \
 --in_dim 1 \
 --seq_in_len 12 \
---seq_out_len 12 \
+--seq_out_len 1 \
 --subgraph_size 4 \
 --split val \
 --batch_index 0 \
 --save_csv ./evaluate/evaluate_GNN_b0_tidy_38.csv \
 --save_wide_csv ./evaluate_GNN_b0_wide_38.csv
 ```
-- (실제 값과 비교)
+- (시각화)
 ```
 python3 compare_test_table.py \
   --data_dir ./data/MYDATA/data_7 \
